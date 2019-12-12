@@ -1,0 +1,20 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	double q, xc, xn, x;
+	cout << "Введите число q: ";
+	cin >> q;
+	xc = 1; xn = q;
+	while (abs(xn - xc) >= DBL_EPSILON) {
+		xc = xn;
+		xn = (xc + q / xc) / 2;
+	}
+	x = sqrt(q);
+	cout << "Xn = " << xn << endl;
+	cout << "X = " << x << endl;
+	return 0;
+}
