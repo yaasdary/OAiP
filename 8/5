@@ -1,0 +1,144 @@
+#include <iostream>
+#include <string>
+#include <Windows.h>
+#include <fstream>
+
+using namespace std;
+
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	int k;
+	cout << "Введите номер задания (1-5): ";
+	cin >> k;
+	switch (k) {
+	case 1: {
+		cout << "ЗАДАНИЕ 1. ЗАПИСЬ В ТЕКСТОВЫЙ ФАЙЛ ИНФОРМАЦИИ, ВВОДИМОЙ С КЛАВИАТУРЫ." << endl; //1 задача
+		string S1;
+		cout << "Введите текст: ";
+		getline(cin, S1);
+		fstream F1;
+		F1.open("C:\\.vs\\Файлы\\81.txt");
+		if (F1) {
+			F1 << S1;
+			F1.close();
+			cout << "Программа выполнена!" << endl;
+		}
+		else { cout << "Файл не открыт" << endl; }
+	}
+			break;
+	case 2: {
+		cout << "ЗАДАНИЕ 2. СЧИТЫВАНИЕ НА ЭКРАН ИНФОРМАЦИИ ИЗ ТЕКСТОВОГО ФАЙЛА." << endl; //2 задача
+		string S2;
+		fstream F2;
+		F2.open("C:\\.vs\\Файлы\\82.txt");
+		if (F2) {
+			while (!F2.eof()) {
+				F2 >> S2;
+				cout << S2 << " ";
+			}
+			F2.close();
+		}
+		else { cout << "Файл не открыт" << endl; }
+		cout << endl;
+	}
+			break;
+	case 3: {
+		cout << "ЗАДАНИЕ 3. ПОСТРОЧНОЕ СЧИТЫВАНИЕ ФАЙЛА И ЗАПИСЬ СТРОК ЗАДОМ НАПЕРЕД." << endl; 
+		string S3;
+		ifstream F3;
+		int a = 0; 
+		F3.open("C:\\.vs\\Файлы\\82.txt");
+		if (F3) {
+			while (getline(F3, S3)) { // пока не достигнут конец файла класть очередную строку в переменную (s)
+				cout << S3 << endl; // выводим на экран
+				a++;
+			}
+		}
+		F3.close();
+		string* arr = new string[a];
+		F3.open("C:\\.vs\\Файлы\\82.txt");
+		if (F3) {
+			for (int i = 0; i < a; i++) {
+				getline(F3, arr[i]); //забиваем строку в массив
+			}
+			cout << "Файл задом наперед: " << endl;
+			for (int i = a - 1; i >= 0; i--) {
+				cout << arr[i] << endl;
+			}
+		}
+		F3.close();
+	}
+			break;
+	case 4: {
+		cout << "ЗАДАЧА 4. НАЙТИ САМУЮ ДЛИННУЮ СТРОКУ В ФАЙЛЕ." << endl;
+		string S4;
+		ifstream F4;
+		int a = 0;
+		int max = 0;
+		int q = 0;
+		F4.open("C:\\.vs\\Файлы\\82.txt");
+		if (F4) {
+			while (getline(F4, S4)) {  // пока не достигнут конец файла класть очередную строку в переменную (s)
+				cout << S4 << endl; // выводим на экран
+				a++;                //считаем количество строк в файле
+			}
+		}
+		F4.close();
+		string* arr = new string[a];
+		int* K = new int[a];
+		F4.open("C:\\.vs\\Файлы\\82.txt");
+		if (F4) {
+			for (int i = 0; i < a; i++) {
+				getline(F4, arr[i]); //забиваем строку в массив
+			}
+			for (int i = 0; i < a; i++) {
+				K[i] = arr[i].length();   //забиваем в отдельный массив длины всех строк
+			}
+			for (int i = 0; i < a; i++) {
+				if (K[i] > max) { max = K[i]; q = i; } //находим максимальную длину
+			}
+			cout << "Самая длинная строка в файле: " << arr[q] << endl;
+		}
+		F4.close();
+		break;
+	}
+	case 5: {
+		cout << "ЗАДАЧА 5. ПЕРЕМЕШАТЬ СТРОКИ В ФАЙЛЕ СЛУЧАЙНЫМ ОБРАЗОМ." << endl;
+		string S4;
+		ifstream F4;
+		int a = 0;
+		int max = 0;
+		int q = 0;
+		F4.open("C:\\.vs\\Файлы\\82.txt");
+		if (F4) {
+			while (getline(F4, S4)) {  
+				cout << S4 << endl;
+				a++;                
+			}
+		}
+		F4.close();
+		string* arr = new string[a];
+		int* K = new int[a];
+		F4.open("C:\\.vs\\Файлы\\82.txt");
+		if (F4) {
+			for (int i = 0; i < a; i++) {
+				getline(F4, arr[i]); 
+			}
+			for (int i = a-1; i >= 1; i--) {
+				int j = rand() % (i+1);
+				swap(arr[i],arr[j]);
+			}
+			cout << "Строки в рандомном порядке: " << endl;
+			for (int i = 0; i < a; i++) {
+				cout << arr[i] << endl;
+			}
+		}
+		F4.close();
+	}
+			break;
+	}
+	return 0;
+}
